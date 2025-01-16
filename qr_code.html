@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR-Code Scanner - Mobile App</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #6b6b70;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            color: white;
+        }
+
+        .header {
+            background-color: #0A025D;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 40px;
+            height: auto;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-logout {
+            background-color: transparent;
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #video-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        video {
+            width: 90vmin;
+            height: 90vmin;
+            max-width: 100%;
+            max-height: 100%;
+            border: 3px solid white;
+            border-radius: 10px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .qr-error-message {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            font-size: 16px;
+        }
+
+        .qr-result {
+            text-align: center;
+            font-size: 18px;
+            margin: 20px 0;
+            word-wrap: break-word;
+        }
+
+        .footer {
+            background-color: #0A025D;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <img src="logo.png" alt="Logo" class="logo">
+    <div class="user-info">
+        <span id="username">Benutzer</span>
+        <button class="btn-logout" id="logout">Logout</button>
+    </div>
+</div>
+
+<div id="video-container">
+    <div class="qr-error-message" id="qr-error-message">Kein QR-Code gefunden!</div>
+    <video id="video" autoplay></video>
+</div>
+
+<div class="qr-result" id="qr-result">
+    <p>Scanne einen QR-Code, um den Inhalt hier zu sehen.</p>
+</div>
+
+<div class="footer">
+    <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('user') || "Benutzer";
+    document.getElementById('username').textContent = username;
+
+    const video = document.getElementById('video');
+    const qrResult = document.getElementById('qr-result');
+    const qrErrorMessage = document.getElementById('qr-error-message');
+
+    let mediaStream = null;
+
+    // Zugriff auf die Kamera
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+        .then(stream => {
+            mediaStream = stream;
+            video.srcObject = stream;
+        })
+        .catch(err => {
+            console.error("Kamera konnte nicht gestartet werden:", err);
+            qrResult.innerHTML = `<p style="color: red;">Kamera konnte nicht gestartet werden. Bitte erlaube den Kamerazugriff.</p>`;
+        });
+
+    // Fotoaufnahme und QR-Code Analyse beim Klick auf das Video
+    video.addEventListener('click', function() {
+        // Video einfrieren (Pause)
+        video.pause();
+
+        // Screenshot des aktuellen Video-Frames
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        const width = video.videoWidth * 2;  // Verdopple die Auflösung für bessere Qualität
+        const height = video.videoHeight * 2;
+        canvas.width = width;
+        canvas.height = height;
+        context.drawImage(video, 0, 0, width, height);
+
+        // QR-Code scannen
+        const imageData = context.getImageData(0, 0, width, height);
+        const code = jsQR(imageData.data, width, height);
+
+        if (code) {
+            // QR-Code erfolgreich erkannt
+            const qrContent = code.data;
+
+            // Überprüfen, ob der Inhalt eine URL ist
+            const isURL = isValidURL(qrContent);
+
+            if (isURL) {
+                // Öffne die URL in einem neuen Tab
+                window.open(qrContent, '_blank');
+            } else {
+                // Zeige den QR-Code Inhalt als Text an
+                //qrResult.innerHTML = `<p>QR-Code Inhalt: <strong>${qrContent}</strong></p>`;
+            }
+            
+            qrErrorMessage.style.display = 'none'; // Fehlermeldung ausblenden
+        } else {
+            // QR-Code nicht erkannt
+            //qrResult.innerHTML = `<p style="color: red;">Kein QR-Code im Bild gefunden.</p>`;
+            qrErrorMessage.style.display = 'block'; // Fehlermeldung anzeigen
+        }
+
+        // Video nach 5 Sekunden fortsetzen (play)
+        setTimeout(function() {
+            video.play(); // Video fortsetzen
+            //qrResult.innerHTML += '<p>Bereit für einen weiteren Scan!</p>';
+        }, 5000); // 5000 ms = 5 Sekunden
+    });
+
+    // Funktion zur Überprüfung, ob der Text eine gültige URL ist
+    function isValidURL(str) {
+        const pattern = new RegExp('^(https?:\\/\\/)?([\\w\\d-]+\\.)+[\\w\\d]{2,}(\\/[^\\s]*)?$', 'i');
+        return pattern.test(str);
+    }
+
+    // Abmeldefunktion
+    document.getElementById('logout').addEventListener('click', function() {
+        if (confirm("Möchten Sie sich abmelden?")) {
+            window.location.href = "login.html";
+        }
+    });
+</script>
+
+</body>
+</html>

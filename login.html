@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Mobile App</title>
+    <!-- Bootstrap CSS einbinden -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Die Login-Box hat nun eine fixe Breite und einen Abstand zum Rand */
+        .login-container {
+            max-width: 500px; /* Maximale Breite des Formulars */
+            width: 100%; /* Formular nimmt maximal 100% des verfügbaren Platzes ein */
+            margin: 20px; /* Abstand zu den Rändern des Bildschirms */
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        /* Fehlernachricht */
+        .error {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+
+        .btn-custom {
+            background-color: #0A025D; /* Deine gewünschte Farbe */
+            color: white; /* Weißer Text */
+            border: none; /* Keine Ränder */
+        }
+
+        .btn-custom:hover {
+            background-color: #070134; /* Dunklere Farbe für den Hover-Effekt */
+        }
+    </style>
+</head>
+<body class="d-flex align-items-center justify-content-center" style="height: 100vh; background-color: #6b6b70;">
+
+<div class="login-container">
+    <h2 class="text-center">Login</h2>
+    <form id="loginForm">
+        <div class="form-group">
+            <label for="username">Benutzername</label>
+            <input type="text" class="form-control" id="username" placeholder="Benutzername" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Passwort</label>
+            <input type="password" class="form-control" id="password" placeholder="Passwort" required>
+        </div>
+        <button type="submit" class="btn btn-custom btn-block">Anmelden</button>
+        <p id="error" class="error text-center mt-3">Falscher Benutzername oder Passwort!</p>
+    </form>
+</div>
+
+<!-- Bootstrap JS und jQuery einbinden -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Festprogrammierte Benutzeranmeldedaten
+    const users = {
+        admin: {
+            username: "admin",
+            password: "admin123",
+            role: "Administrator"
+        },
+        user: {
+            username: "user",
+            password: "user123",
+            role: "User"
+        }
+    };
+
+    // Anmeldeformular einreichen
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const error = document.getElementById('error');
+        
+        // Überprüfen der Anmeldedaten
+        if ((username === users.admin.username && password === users.admin.password) || 
+            (username === users.user.username && password === users.user.password)) {
+            error.style.display = 'none';
+            // Weiterleitung zur Menüseite nach erfolgreicher Anmeldung
+            window.location.href = "menu.html?user=" + username;
+        } else {
+            error.style.display = 'block';
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hauptmenü - Mobile App</title>
+    <!-- Bootstrap CSS einbinden -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome für Icons einbinden -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #6b6b70;    
+        }
+        /* Header-Stil */
+        .header {
+            background-color: #0A025D;
+            padding: 10px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            width: 40px;
+            height: auto;
+        }
+
+        /* Benutzer-Info Bereich */
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info span {
+            margin-right: 10px;
+            color: white;
+        }
+
+        .btn-logout {
+            background-color: transparent;
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .btn-logout:hover {
+            color: #dc3545; /* Farbe ändern, wenn Hover */
+        }
+
+        /* Grid für 6 Buttons, immer 2 nebeneinander und 3 untereinander ohne Abstand */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 Spalten */
+            grid-template-rows: repeat(3, 1fr); /* 3 Zeilen */
+            gap: 0; /* Kein Abstand zwischen den Buttons */
+            height: calc(100vh - 120px); /* Gesamt-Höhe minus Header und Footer-Höhe */
+        }
+
+        .grid-item {
+            display: flex;
+            flex-direction: column; /* Vertikale Anordnung */
+            justify-content: center;
+            align-items: center;
+            text-align: center; /* Zentriert den Text */
+            background-color: #6b6b70;
+            border: 1px solid #6b6b70;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            padding: 10px; /* Padding hinzufügen */
+        }
+
+        .grid-item img {
+            max-width: 90%; /* Maximale Breite des Bildes */
+            height: auto; /* Höhe proportional halten */
+            margin-bottom: 10px; /* Abstand zum Text */
+        }
+
+        .grid-item p {
+            margin: 0; /* Standardmargin des Absatzes entfernen */
+            font-size: 20px; /* Schriftgröße vergrößern */
+            font-weight: bold; /* Text fett machen */
+            color: white; /* Textfarbe */
+            text-align: center; /* Zentriere den Text */
+        }
+
+        .grid-item:hover {
+            background-color: #0A025D;
+            color: white;
+        }
+
+        /* Footer für Impressum */
+        .footer {
+            background-color: #0A025D;
+            color: white;
+            text-align: center;
+            width: 100%;
+            padding: 20px 0; /* Padding optional, falls Abstand innerhalb des Footers benötigt wird */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px; /* Höhe des Footers */
+            gap: 10px; 
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer a:hover {
+            color: #dc3545; /* Farbe ändern, wenn Hover */
+        }
+
+        /* Keine Änderung für kleinere Bildschirme, immer 2x3-Anordnung */
+        @media (max-width: 576px) {
+            .header {
+                padding: 10px; /* Weniger Padding auf kleinen Bildschirmen */
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr); /* Immer 2 Spalten */
+                grid-template-rows: repeat(3, 1fr); /* Immer 3 Reihen */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+    <img src="logo.png" alt="Logo" class="logo"> <!-- Dein Logo -->
+    <div class="user-info">
+        <span id="username">Benutzer</span>
+        <!-- Abmelden-Icon als Button -->
+        <button class="btn-logout" id="logout">
+            <i class="fas fa-sign-out-alt"></i> <!-- Font Awesome Abmelden-Icon -->
+        </button>
+    </div>
+</div>
+
+<!-- 6 gleich große Buttons in einem Grid -->
+<div class="grid-container">
+    <div class="grid-item" onclick="window.location.href='page1.html'">
+        <img src="/img/storage.png" alt="Bild 1" style="max-width: 100%; height: auto;">
+        <p>Storage</p>
+    </div>
+    <div class="grid-item" onclick="window.location.href='page2.html'">
+        <img src="/img/truck.png" alt="Bild 2" style="max-width: 100%; height: auto;">
+        <p>Transport</p>
+    </div>
+    <div class="grid-item" onclick="window.location.href='page3.html'">
+        <img src="/img/radar.png" alt="Bild 3" style="max-width: 100%; height: auto;">
+        <p>Status</p>
+    </div>
+    <div class="grid-item" onclick="window.location.href='page4.html'">
+        <img src="/img/info.png" alt="Bild 4" style="max-width: 100%; height: auto;">
+        <p>Information</p>
+    </div>
+    <div class="grid-item" onclick="window.location.href='page5.html'">
+        <img src="/img/barcode.png" alt="Bild 5" style="max-width: 100%; height: auto;">
+        <p>Barcode Scanner</p>
+    </div>
+    <div class="grid-item" onclick="window.location.href='qr_code.html'">
+        <img src="/img/qr_code.png" alt="Bild 6" style="max-width: 100%; height: auto;">
+        <p>QR-Code Scanner</p>
+    </div>
+</div>
+
+<!-- Footer für Impressum -->
+<div class="footer">
+    <a href="impressum.html">Impressum</a>
+    <span class="separator">|</span>
+    <a href="datenschutz.html">Datenschutz</a>
+</div>
+
+<!-- Bootstrap JS und jQuery einbinden -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> <!-- Vollständige jQuery-Version -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Benutzernamen aus der URL abrufen
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('user');
+
+    // Benutzernamen anzeigen
+    document.getElementById('username').textContent = username;
+
+    // Abmeldefunktion
+    document.getElementById('logout').addEventListener('click', function(event) {
+        event.preventDefault(); // Verhindert das Standardverhalten des Buttons
+
+        // Bestätigung anzeigen
+        if (confirm("Möchten Sie sich abmelden?")) {
+            // Zurück zur Login-Seite
+            window.location.href = "login.html";
+        }
+    });
+</script>
+
+</body>
+</html>
