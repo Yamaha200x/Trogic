@@ -133,8 +133,8 @@
 
     let mediaStream = null;
 
-    // Zugriff auf die Kamera
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+    // Zugriff auf die Frontkamera
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
         .then(stream => {
             mediaStream = stream;
             video.srcObject = stream;
@@ -174,20 +174,18 @@
                 window.open(qrContent, '_blank');
             } else {
                 // Zeige den QR-Code Inhalt als Text an
-                //qrResult.innerHTML = `<p>QR-Code Inhalt: <strong>${qrContent}</strong></p>`;
+                qrResult.innerHTML = `<p>QR-Code Inhalt: <strong>${qrContent}</strong></p>`;
             }
             
             qrErrorMessage.style.display = 'none'; // Fehlermeldung ausblenden
         } else {
             // QR-Code nicht erkannt
-            //qrResult.innerHTML = `<p style="color: red;">Kein QR-Code im Bild gefunden.</p>`;
             qrErrorMessage.style.display = 'block'; // Fehlermeldung anzeigen
         }
 
         // Video nach 5 Sekunden fortsetzen (play)
         setTimeout(function() {
             video.play(); // Video fortsetzen
-            //qrResult.innerHTML += '<p>Bereit für einen weiteren Scan!</p>';
         }, 5000); // 5000 ms = 5 Sekunden
     });
 
