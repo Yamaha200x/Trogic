@@ -14,6 +14,7 @@
             flex-direction: column;
             height: 100vh;
             color: white;
+            justify-content: space-between;
         }
 
         .header {
@@ -42,22 +43,26 @@
             cursor: pointer;
         }
 
+        /* Container für das Video */
         #video-container {
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
+            width: 100%; /* Volle Breite */
+            height: 100%; /* Volle Höhe */
         }
 
+        /* Sicherstellen, dass das Video immer quadratisch ist */
         video {
-            width: 90vmin;
-            height: 90vmin;
+            width: 90vmin; /* 90% des kleineren Bildschirmwertes (Breite oder Höhe) */
+            height: 90vmin; /* 90% des kleineren Bildschirmwertes */
             max-width: 100%;
             max-height: 100%;
             border: 3px solid white;
             border-radius: 10px;
-            object-fit: cover;
+            object-fit: cover; /* Bild innerhalb des quadratischen Rahmens skalieren */
             cursor: pointer;
         }
 
