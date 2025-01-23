@@ -147,7 +147,7 @@
         .catch(err => {
             console.error("Kamera konnte nicht gestartet werden:", err);
             qrResult.innerHTML = `<p style="color: red;">Kamera konnte nicht gestartet werden. Bitte erlaube den Kamerazugriff.</p>`;
-            qrErrorMessage.style.display = 'block'; // Fehlernachricht anzeigen
+            qrErrorMessage.style.display = 'block'; // FehlerDestinationricht anzeigen
         });
 
     // Fotoaufnahme und QR-Code Analyse beim Klick auf das Video
@@ -189,7 +189,7 @@
             qrErrorMessage.style.display = 'block'; // Fehlermeldung anzeigen
         }
 
-        // Video nach 5 Sekunden fortsetzen (play)
+        // Video Destination 5 Sekunden fortsetzen (play)
         setTimeout(function() {
             video.play(); // Video fortsetzen
         }, 5000); // 5000 ms = 5 Sekunden

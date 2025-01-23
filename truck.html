@@ -4,169 +4,451 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Truck - Mobile App</title>
-    <!-- Bootstrap CSS einbinden -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome für Icons einbinden -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #6b6b70;
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        /* Header-Stil */
         .header {
             background-color: #0A025D;
-            padding: 10px 20px;
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
-            z-index: 1;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            z-index: 1000;
         }
 
         .logo {
             width: 40px;
-            height: auto;
-        }
-
-        /* Benutzer-Info Bereich */
-        .user-info {
-            display: flex;
-            align-items: center;
         }
 
         .user-info span {
-            margin-right: 10px;
             color: white;
+            margin-right: 10px;
         }
 
         .btn-logout {
-            background-color: transparent;
+            background: none;
             color: white;
             border: none;
-            font-size: 20px;
             cursor: pointer;
+            font-size: 20px;
         }
 
         .btn-logout:hover {
             color: #dc3545;
         }
 
-        /* Footer für Impressum immer am unteren Rand */
+        .content {
+            flex: 1;
+            display: flex;
+            margin-top: 60px; /* Höhe des Headers */
+            margin-bottom: 60px; /* Höhe des Footers */
+        }
+
+        .scrollable-list {
+            color: white;
+            padding: 15px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .map-container {
+            flex: 1;
+            height: calc(100vh - 120px); /* Vollständige Höhe abzüglich Header und Footer */
+            display: flex;
+        }
+
+        iframe.map {
+            flex: 1;
+            border: none;
+        }
+
         .footer {
             background-color: #0A025D;
             color: white;
             text-align: center;
-            width: 100%;
-            padding: 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             height: 60px;
-            gap: 10px;
-            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
             bottom: 0;
+            width: 100%;
+            z-index: 1000;
         }
 
-        .footer a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
+        .item-icon {
+            font-size: 1.5rem;
+            color: #0A025D;
+            animation: bounce 1.5s infinite;
         }
 
-        .footer a:hover {
-            color: #dc3545;
+.container-fluid {
+            margin-top: 60px;
+            padding: 15px;
         }
 
-        /* Benutzerdefinierte Farbe für den Zurück-Button */
-        .btn-custom {
-            background-color: #0A025D;  /* Blaue Hintergrundfarbe */
-            color: white;               /* Weiße Schriftfarbe */
-            border: none;               /* Keine Rahmenfarbe */
+        .scrollable-list {
+            overflow-y: auto;
+            max-height: calc(100vh - 120px);
         }
 
-        /* Positionierung des Zurück-Buttons links unter dem Header */
-        .back-button-container {
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .list-group-item {
+            background-color: #5a5a5e;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .route-container {
+            margin-top: 15px;
+        }
+
+        .route-line {
+            position: relative;
+            height: 6px;
+            background: #ddd;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .station {
             position: absolute;
-            top: 80px; /* Abstand vom Header */
-            left: 20px; /* Abstand vom linken Rand */
-            z-index: 2;
+            top: -20px;
+            font-size: 0.8rem;
+            text-align: center;
+            transform: translateX(-50%);
         }
 
-        /* Keine Änderung für kleinere Bildschirme, immer 2x3-Anordnung */
-        @media (max-width: 576px) {
-            .header {
-                padding: 10px;
-            }
-
-            .grid-container {
-                grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(3, 1fr);
-            }
+        .progress-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 6px;
+            background: #0A025D;
+            animation: progress 10s linear infinite;
         }
+
+        @keyframes progress {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes truck-move {
+            from { left: 0%; }
+            to { left: 100%; }
+        }
+
+        /* Gruppenspezifisches Styling */
+        .group-header {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #progress-line-1 {
+    animation: progress-animation 6s linear infinite;
+}
+
+/* Gruppe 2: Etwas langsamer */
+#progress-line-2 {
+    animation: progress-animation 8s linear infinite;
+}
+
+/* Gruppe 3: Noch langsamer */
+#progress-line-3 {
+    animation: progress-animation 10s linear infinite;
+}
+
+/* Gruppe 4: Noch langsamer */
+#progress-line-4 {
+    animation: progress-animation 12s linear infinite;
+}
+
+/* Gruppe 5: Sehr langsam */
+#progress-line-5 {
+    animation: progress-animation 15s linear infinite;
+}
+
+/* Gruppe 6: Langsame Geschwindigkeit */
+#progress-line-6 {
+    animation: progress-animation 18s linear infinite;
+}
+
+/* Gruppe 7: Sehr langsam */
+#progress-line-7 {
+    animation: progress-animation 20s linear infinite;
+}
+
+.checkmark {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 2rem;
+    color: green;
+    display: none; /* Standardmäßig versteckt */
+    animation: jump 1s ease-out forwards;
+}
+
+@keyframes jump {
+    0% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-10px);
+    }
+    50% {
+        transform: translateY(0);
+    }
+    75% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
     </style>
 </head>
 <body>
 
 <!-- Header -->
 <div class="header">
-    <img src="/img/logo.png" alt="Logo" class="logo"> <!-- Dein Logo -->
+    <img src="/img/logo.png" alt="Logo" class="logo">
     <div class="user-info">
         <span id="username">Benutzer</span>
-        <!-- Abmelden-Icon als Button -->
         <button class="btn-logout" id="logout">
-            <i class="fas fa-sign-out-alt"></i> <!-- Font Awesome Abmelden-Icon -->
+            <i class="fas fa-sign-out-alt"></i>
         </button>
     </div>
 </div>
 
-<!-- Zurück-Button Container -->
-<div class="back-button-container">
-    <button class="btn btn-custom" onclick="goBack()">
-        <i class="fas fa-arrow-left"></i> Back
-    </button>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Rechte Karte -->
+        <div class="col-12 col-md-6 order-md-2">
+            <div class="map-container">
+                <iframe 
+                class="map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d243646.2396683923!2d13.144554193996402!3d52.50676134975839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851e2176b0c17%3A0x408ab2ae4ba0e77!2sBerlin!5e0!3m2!1sen!2sde!4v1611251345634!5m2!1sen!2sde"
+                allowfullscreen=""
+                aria-hidden="false"
+                tabindex="0">
+            </iframe>    
+            </div>
+        </div>
+
+        <!-- Linke scrollbare Liste -->
+        <div class="col-12 col-md-6 order-md-1">
+            <div class="scrollable-list">
+                <div class="list-group-item">
+                    <div class="group-header">Truck 4048</div>
+                    <p id="current-location-1">Current position: Berlin</p>
+                    <p>Destination: München</p>
+                    <div class="route-container">
+                        <div class="route-line">
+                            <!-- Stationen für Gruppe 1 -->
+                            <div class="station" style="left: 0%;">Berlin</div>
+                            <div class="station" style="left: 25%;">Hamburg</div>
+                            <div class="station" style="left: 50%;">Leipzig</div>
+                            <div class="station" style="left: 75%;">Köln</div>
+                            <div class="station" style="left: 100%;">München</div>
+                            <div class="progress-line" id="progress-line-1"></div>
+                            <div class="truck" id="truck-1"></div>
+                            <div class="checkmark" id="checkmark-1" style="display: none;">✔</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="list-group-item">
+                    <div class="group-header">Truck 2089</div>
+                    <p id="current-location-2">Current position: Frankfurt</p>
+                    <p>Destination: Stuttgart</p>
+                    <div class="route-container">
+                        <div class="route-line">
+                            <!-- Stationen für Gruppe 2 -->
+                            <div class="station" style="left: 0%;">Frankfurt</div>
+                            <div class="station" style="left: 25%;">Düsseldorf</div>
+                            <div class="station" style="left: 50%;">Mannheim</div>
+                            <div class="station" style="left: 75%;">Heidelberg</div>
+                            <div class="station" style="left: 100%;">Stuttgart</div>
+                            <div class="progress-line" id="progress-line-2"></div>
+                            <div class="truck" id="truck-2"></div>
+                            <div class="checkmark" id="checkmark-2" style="display: none;">✔</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="list-group-item">
+                    <div class="group-header">Truck 3910</div>
+                    <p id="current-location-3">Current position: Berlin</p>
+                    <p>Destination: Hamburg</p>
+                    <div class="route-container">
+                        <div class="route-line">
+                            <div class="station" style="left: 0%;">Berlin</div>
+                            <div class="station" style="left: 50%;">Hamburg</div>
+                            <div class="station" style="left: 100%;">München</div>
+                            <div class="progress-line" id="progress-line-3"></div>
+                            <div class="truck" id="truck-3"></div>
+                            <div class="checkmark" id="checkmark-3" style="display: none;">✔</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="list-group-item">
+                    <div class="group-header">Truck 4090</div>
+                    <p id="current-location-4">Current position: Zürich</p>
+                    <p>Destination: Basel</p>
+                    <div class="route-container">
+                        <div class="route-line">
+                            <div class="station" style="left: 0%;">Zürich</div>
+                            <div class="station" style="left: 50%;">Basel</div>
+                            <div class="progress-line" id="progress-line-4"></div>
+                            <div class="truck" id="truck-4"></div>
+                            <div class="checkmark" id="checkmark-4" style="display: none;">✔</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="list-group-item">
+                    <div class="group-header">Truck 5598</div>
+                    <p id="current-location-5">Current position: München</p>
+                    <p>Destination: Berlin</p>
+                    <div class="route-container">
+                        <div class="route-line">
+                            <div class="station" style="left: 0%;">München</div>
+                            <div class="station" style="left: 50%;">Frankfurt</div>
+                            <div class="station" style="left: 100%;">Berlin</div>
+                            <div class="progress-line" id="progress-line-5"></div>
+                            <div class="truck" id="truck-5"></div>
+                            <div class="checkmark" id="checkmark-5" style="display: none;">✔</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="list-group-item">
+                    <div class="group-header">Truck 6742</div>
+                    <p id="current-location-6">Current position: Köln</p>
+                    <p>Destination: Düsseldorf</p>
+                    <div class="route-container">
+                        <div class="route-line">
+                            <div class="station" style="left: 0%;">Köln</div>
+                            <div class="station" style="left: 50%;">Düsseldorf</div>
+                            <div class="progress-line" id="progress-line-6"></div>
+                            <div class="truck" id="truck-6"></div>
+                            <div class="checkmark" id="checkmark-6" style="display: none;">✔</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="list-group-item">
+                    <div class="group-header">Truck 7784</div>
+                    <p id="current-location-7">Current position: Stuttgart</p>
+                    <p>Destination: Mannheim</p>
+                    <div class="route-container">
+                        <div class="route-line">
+                            <div class="station" style="left: 0%;">Stuttgart</div>
+                            <div class="station" style="left: 50%;">Mannheim</div>
+                            <div class="progress-line" id="progress-line-7"></div>
+                            <div class="truck" id="truck-7"></div>
+                            <div class="checkmark" id="checkmark-7" style="display: none;">✔</div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        </div>
+    </div>
 </div>
 
-<!-- Footer für Impressum -->
+<!-- Footer -->
 <div class="footer">
     <a href="impressum.html">Impressum</a>
     <span class="separator">|</span>
     <a href="datenschutz.html">Datenschutz</a>
 </div>
 
-<!-- Bootstrap JS und jQuery einbinden -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<!-- Scripts -->
 <script>
-    // Benutzernamen aus der URL abrufen
-    const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get('user');
+    // Stations und Progress Animation für alle 7 Gruppen
+    const stationsList = [
+        ["Berlin", "Hamburg", "Leipzig", "Köln", "München"], // Gruppe 1
+        ["Frankfurt", "Düsseldorf", "Mannheim", "Heidelberg", "Stuttgart"], // Gruppe 2
+        ["Berlin", "Hamburg", "München"], // Gruppe 3
+        ["Zürich", "Basel"], // Gruppe 4
+        ["München", "Frankfurt", "Berlin"], // Gruppe 5
+        ["Köln", "Düsseldorf"], // Gruppe 6
+        ["Stuttgart", "Mannheim"] // Gruppe 7
+    ];
+
+    // Lange Durations für die Animation (in Millisekunden)
+    const progressDurations = [300000, 350000, 250000, 200000, 40000, 450000, 500000]; // Alle Animationen laufen langsamer
+
+    // Funktion für das Update jeder Gruppe
+    function updateProgress(groupId, stations, progressLineId, truckId, currentLocationId, duration) {
+        let progress = 0;
+        const progressLine = document.getElementById(progressLineId);
+        const truck = document.getElementById(truckId);
+        const currentLocation = document.getElementById(currentLocationId);
+
+        function update() {
+            progress += 100; // Fortschritt um 100 erhöhen (für jede Iteration)
+
+            const percentage = (progress / duration) * 100;
+            progressLine.style.width = `${percentage}%`; // Fortschritt anzeigen
+            truck.style.left = `${percentage}%`; // Truck auf Fortschritt setzen
+
+            // Berechne den Fortschritt der Stationen
+            const stepIndex = Math.min(Math.floor((percentage / 100) * (stations.length - 1)), stations.length - 1);
+            currentLocation.textContent = `Current position: ${stations[stepIndex]}`;
+
+            // Wenn noch nicht 100% erreicht sind, weiter aktualisieren
+            if (progress < duration) {
+                setTimeout(update, 100); // Update jede 100ms
+            }
+        }
+
+        update(); // Initialisiere den Fortschrittsupdate
+    }
+
+    // Animation für alle Gruppen starten
+    for (let i = 0; i < 7; i++) {
+        updateProgress(i + 1, stationsList[i], `progress-line-${i + 1}`, `truck-${i + 1}`, `current-location-${i + 1}`, progressDurations[i]);
+    }
 
     // Benutzernamen anzeigen
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('user');
     document.getElementById('username').textContent = username;
 
     // Abmeldefunktion
     document.getElementById('logout').addEventListener('click', function(event) {
-        event.preventDefault(); // Verhindert das Standardverhalten des Buttons
-
-        // Bestätigung anzeigen
+        event.preventDefault();
         if (confirm("Möchten Sie sich abmelden?")) {
-            // Zurück zur Login-Seite
             window.location.href = "login.html";
         }
     });
-
-    // Zurück-Funktion
-    function goBack() {
-        // Benutzer zurück zur Menü-Seite leiten
-        window.location.href = "/menu.html?user=admin";
-    }
 </script>
 
 </body>

@@ -17,7 +17,7 @@
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
-        /* Fehlernachricht */
+        /* FehlerDestinationricht */
         .error {
             color: red;
             font-size: 12px;
@@ -85,7 +85,7 @@
         if ((username === users.admin.username && password === users.admin.password) || 
             (username === users.user.username && password === users.user.password)) {
             error.style.display = 'none';
-            // Weiterleitung zur Menüseite nach erfolgreicher Anmeldung
+            // Weiterleitung zur Menüseite Destination erfolgreicher Anmeldung
             window.location.href = "menu.html?user=" + username;
         } else {
             error.style.display = 'block';
