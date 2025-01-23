@@ -234,7 +234,7 @@
 
 <!-- Header -->
 <div class="header">
-    <img src="/img/logo.png" alt="Logo" class="logo">
+    <img src="/img/logo.png" alt="Logo" class="logo" onclick="goBack()">
     <div class="user-info">
         <span id="username">Benutzer</span>
         <button class="btn-logout" id="logout">
@@ -242,6 +242,7 @@
         </button>
     </div>
 </div>
+
 
 <div class="container-fluid">
     <div class="row">
@@ -449,6 +450,10 @@
             window.location.href = "login.html";
         }
     });
+
+    function goBack() {
+        window.location.href = "/Trogic/menu.html";
+    }
 </script>
 
 </body>
