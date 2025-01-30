@@ -228,6 +228,24 @@
         function goBack() {
             window.location.href = "/Trogic/menu.html";
         }
+
+            // Benutzernamen aus der URL abrufen
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('user');
+
+    // Benutzernamen anzeigen
+    document.getElementById('username').textContent = username;
+
+    // Abmeldefunktion
+    document.getElementById('logout').addEventListener('click', function(event) {
+        event.preventDefault(); // Verhindert das Standardverhalten des Buttons
+
+        // Bestätigung anzeigen
+        if (confirm("Möchten Sie sich abmelden?")) {
+            // Zurück zur Login-Seite
+            window.location.href = "login.html";
+        }
+    });
     </script>
 </body>
 </html>
