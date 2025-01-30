@@ -231,6 +231,17 @@
                 $('#packageInfo').html(packageDetails);
             });
         });
+
+        document.getElementById('logout').addEventListener('click', function(event) {
+            event.preventDefault();
+            if (confirm("Möchten Sie sich abmelden?")) {
+                window.location.href = "login.html";
+            }
+        });
+
+        function goBack() {
+            window.location.href = "/Trogic/menu.html";
+        }
     </script>
 </body>
 </html>
