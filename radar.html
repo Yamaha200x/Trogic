@@ -19,11 +19,11 @@
 
         .header {
             background-color: #0A025D;
-            padding: 10px 20px;
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 10px 20px;
             position: fixed;
             top: 0;
             width: 100%;
@@ -42,24 +42,16 @@
         }
 
         .user-info span {
-            margin-right: 10px;
             color: white;
+            margin-right: 10px;
         }
 
         .btn-logout {
-            background-color: transparent;
+            background: none;
             color: white;
             border: none;
-            font-size: 20px;
             cursor: pointer;
-        }
-
-        .btn-back {
-            background-color: transparent;
-            color: white;
-            border: none;
             font-size: 20px;
-            cursor: pointer;
         }
 
         .btn-logout:hover {
@@ -135,11 +127,12 @@
 </head>
 <body>
     <div class="header">
-        <img src="/Trogic/img/logo.png" alt="Logo" class="logo" onclick="goBack()">
+        <img src="/Trogic/img/logo.png" alt="Logo" class="logo"> <!-- Dein Logo -->
         <div class="user-info">
             <span id="username">Benutzer</span>
+            <!-- Abmelden-Icon als Button -->
             <button class="btn-logout" id="logout">
-                <i class="fas fa-sign-out-alt"></i>
+                <i class="fas fa-sign-out-alt"></i> <!-- Font Awesome Abmelden-Icon -->
             </button>
         </div>
     </div>
