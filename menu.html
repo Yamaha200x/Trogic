@@ -100,12 +100,15 @@
             color: white;
             text-align: center;
             width: 100%;
-            padding: 20px 0; /* Padding optional, falls Abstand innerhalb des Footers benötigt wird */
+            padding: 20px 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 60px; /* Höhe des Footers */
-            gap: 10px; 
+            height: 60px;
+            gap: 10px;
+            position: fixed;
+            bottom: 0;
+            z-index: 1000;
         }
 
         .footer a {
@@ -115,7 +118,7 @@
         }
 
         .footer a:hover {
-            color: #dc3545; /* Farbe ändern, wenn Hover */
+            color: #dc3545;
         }
 
         /* Keine Änderung für kleinere Bildschirme, immer 2x3-Anordnung */
