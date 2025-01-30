@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Truck - Mobile App</title>
-    <!-- Bootstrap CSS einbinden -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome für Icons einbinden -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         body {
-            background-color: #6b6b70;
+            background-color: #e0e0e0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            font-family: Arial, sans-serif;
         }
 
-        /* Header-Stil */
         .header {
             background-color: #0A025D;
             padding: 10px 20px;
@@ -24,8 +24,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
-            z-index: 1;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            z-index: 1000;
         }
 
         .logo {
@@ -33,7 +36,6 @@
             height: auto;
         }
 
-        /* Benutzer-Info Bereich */
         .user-info {
             display: flex;
             align-items: center;
@@ -52,11 +54,18 @@
             cursor: pointer;
         }
 
+        .btn-back {
+            background-color: transparent;
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
         .btn-logout:hover {
             color: #dc3545;
         }
 
-        /* Footer für Impressum immer am unteren Rand */
         .footer {
             background-color: #0A025D;
             color: white;
@@ -68,8 +77,9 @@
             align-items: center;
             height: 60px;
             gap: 10px;
-            position: absolute;
+            position: fixed;
             bottom: 0;
+            z-index: 1000;
         }
 
         .footer a {
@@ -82,84 +92,145 @@
             color: #dc3545;
         }
 
-        /* Benutzerdefinierte Farbe für den Zurück-Button */
-        .btn-custom {
-            background-color: #0A025D;  /* Blaue Hintergrundfarbe */
-            color: white;               /* Weiße Schriftfarbe */
-            border: none;               /* Keine Rahmenfarbe */
+        .container {
+            flex: 1;
+            padding: 40px;
+            margin-top: 20px; /* Abstand zwischen Header und Inhalt */
         }
 
-        /* Positionierung des Zurück-Buttons links unter dem Header */
-        .back-button-container {
-            position: absolute;
-            top: 80px; /* Abstand vom Header */
-            left: 20px; /* Abstand vom linken Rand */
-            z-index: 2;
+        .card {
+            border-radius: 12px;
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin-top: 30px;
+            margin-bottom: 50px;
         }
 
-        /* Keine Änderung für kleinere Bildschirme, immer 2x3-Anordnung */
-        @media (max-width: 576px) {
-            .header {
-                padding: 10px;
-            }
+        .package-info {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
 
-            .grid-container {
-                grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(3, 1fr);
-            }
+        .package-info h5 {
+            text-decoration: underline;
+        }
+
+        .detail-section {
+            margin-top: 15px;
+            padding: 10px;
+            border-left: 5px solid #0056b3;
+            background-color: #f8f9fa;
         }
     </style>
 </head>
 <body>
-
-<!-- Header -->
-<div class="header">
-    <img src="/img/logo.png" alt="Logo" class="logo" onclick="goBack()">
-    <div class="user-info">
-        <span id="username">Benutzer</span>
-        <button class="btn-logout" id="logout">
-            <i class="fas fa-sign-out-alt"></i>
-        </button>
+    <div class="header">
+        <img src="/img/logo.png" alt="Logo" class="logo" onclick="goBack()">
+        <div class="user-info">
+            <span id="username">Benutzer</span>
+            <button class="btn-logout" id="logout">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
     </div>
-</div>
+
+    <div class="container">
+        <div class="card">
+            <h3 class="mb-4">Paketverwaltungssystem</h3>
+            <p>Verwalte und überprüfe den Status der Pakete mit detaillierten Informationen.</p>
+            <label for="packageSelect" class="font-weight-bold">Wähle ein Paket:</label>
+            <select id="packageSelect" class="form-control">
+                <option value="" disabled selected>-- Paket auswählen --</option>
+            </select>
+            <div id="packageInfo" class="package-info"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a>
+    </div>
+
+    <script>
+        const packages = [
+            { id: 1000, inhalt: ["Buch"], gewicht: "1kg", versanddatum: "2024-01-15", fertig: true, adresse: "Musterstraße 12, Berlin", angekommen: true, gefüllt: true },
+            { id: 2, inhalt: ["Laptop", "Ladekabel"], gewicht: "3kg", versanddatum: "2024-01-10", fertig: false, adresse: "Hafenstraße 7, Hamburg", angekommen: false, gefüllt: false },
+            { id: 3, inhalt: ["T-Shirt", "Hose", "Jacke"], gewicht: "2.5kg", versanddatum: "2024-01-05", fertig: true, adresse: "Marienplatz 1, München", angekommen: true, gefüllt: true },
+            { id: 4, inhalt: ["Smartphone", "Kopfhörer"], gewicht: "1.2kg", versanddatum: "2024-01-14", fertig: true, adresse: "Lindenstraße 8, Köln", angekommen: true, gefüllt: true },
+            { id: 5, inhalt: ["Tablet", "Schutzhülle"], gewicht: "1.5kg", versanddatum: "2024-01-12", fertig: false, adresse: "Berliner Allee 21, Düsseldorf", angekommen: false, gefüllt: false },
+            { id: 6, inhalt: ["Kamera", "Speicherkarte"], gewicht: "1.8kg", versanddatum: "2024-01-08", fertig: true, adresse: "Friedrichstraße 45, Frankfurt", angekommen: false, gefüllt: true },
+            { id: 7, inhalt: ["Drucker"], gewicht: "4kg", versanddatum: "2024-01-09", fertig: false, adresse: "Kaiserstraße 50, Stuttgart", angekommen: true, gefüllt: false },
+            { id: 8, inhalt: ["Kühlschrank", "Gefrierschrank"], gewicht: "25kg", versanddatum: "2024-01-07", fertig: true, adresse: "Eisenbahnstraße 13, Leipzig", angekommen: false, gefüllt: true },
+            { id: 9, inhalt: ["Fernseher", "Batterien"], gewicht: "7kg", versanddatum: "2024-01-04", fertig: false, adresse: "Parkstraße 6, Bremen", angekommen: true, gefüllt: false },
+            { id: 10, inhalt: ["Schreibtisch", "Stuhl"], gewicht: "15kg", versanddatum: "2024-01-20", fertig: true, adresse: "Goethestraße 33, Hannover", angekommen: false, gefüllt: true },
+            { id: 11, inhalt: ["Mikrowelle", "Teller"], gewicht: "3kg", versanddatum: "2024-01-18", fertig: true, adresse: "Lindengraben 5, Nürnberg", angekommen: true, gefüllt: true },
+            { id: 12, inhalt: ["Kochbuch", "Löffel"], gewicht: "1.2kg", versanddatum: "2024-01-13", fertig: true, adresse: "Rosenstraße 14, Dortmund", angekommen: false, gefüllt: true },
+            { id: 13, inhalt: ["Hemd", "Socken"], gewicht: "1kg", versanddatum: "2024-01-11", fertig: true, adresse: "Albertstraße 9, Essen", angekommen: true, gefüllt: true },
+            { id: 14, inhalt: ["Lederjacke"], gewicht: "1.7kg", versanddatum: "2024-01-06", fertig: false, adresse: "Mozartstraße 11, Berlin", angekommen: false, gefüllt: false },
+            { id: 15, inhalt: ["Bettwäsche", "Decke"], gewicht: "2kg", versanddatum: "2024-01-19", fertig: true, adresse: "Alleeweg 3, Leipzig", angekommen: true, gefüllt: true },
+            { id: 16, inhalt: ["Gitarre"], gewicht: "3.5kg", versanddatum: "2024-01-17", fertig: false, adresse: "Schulstraße 22, Karlsruhe", angekommen: true, gefüllt: false },
+            { id: 17, inhalt: ["Fahrrad", "Schloss"], gewicht: "8kg", versanddatum: "2024-01-25", fertig: true, adresse: "Am Markt 6, Mannheim", angekommen: false, gefüllt: true },
+            { id: 18, inhalt: ["Wecker", "Handy"], gewicht: "0.5kg", versanddatum: "2024-01-23", fertig: false, adresse: "Seestraße 11, Bonn", angekommen: false, gefüllt: false },
+            { id: 19, inhalt: ["Teppich", "Vorhang"], gewicht: "5kg", versanddatum: "2024-01-21", fertig: true, adresse: "Fischerstraße 8, München", angekommen: true, gefüllt: true },
+            { id: 20, inhalt: ["Rucksack", "Schuhe"], gewicht: "1.3kg", versanddatum: "2024-01-02", fertig: true, adresse: "Bachstraße 4, Freiburg", angekommen: false, gefüllt: true },
+            { id: 21, inhalt: ["Mixer", "Rezeptbuch"], gewicht: "2.5kg", versanddatum: "2024-01-22", fertig: true, adresse: "Königstraße 3, Frankfurt", angekommen: false, gefüllt: true },
+            { id: 22, inhalt: ["Notebook", "Stift"], gewicht: "1kg", versanddatum: "2024-01-16", fertig: true, adresse: "Hauptstraße 15, Stuttgart", angekommen: true, gefüllt: true },
+            { id: 23, inhalt: ["Bohrmaschine", "Schraubenzubehör"], gewicht: "5.8kg", versanddatum: "2024-01-24", fertig: false, adresse: "Lindenplatz 9, Düsseldorf", angekommen: false, gefüllt: false },
+            { id: 24, inhalt: ["Kochfeld", "Topfset"], gewicht: "10kg", versanddatum: "2024-01-30", fertig: true, adresse: "Sonnenweg 20, Hamburg", angekommen: true, gefüllt: true },
+            { id: 25, inhalt: ["Brotmaschine", "Messer"], gewicht: "2.2kg", versanddatum: "2024-01-26", fertig: true, adresse: "Mühlstraße 8, Köln", angekommen: false, gefüllt: true },
+            { id: 26, inhalt: ["Sessel", "Tisch"], gewicht: "12kg", versanddatum: "2024-01-27", fertig: false, adresse: "Berliner Straße 5, Dortmund", angekommen: false, gefüllt: false },
+            { id: 27, inhalt: ["Wanduhr", "Dekoration"], gewicht: "1.2kg", versanddatum: "2024-01-29", fertig: true, adresse: "Stadtplatz 7, Leipzig", angekommen: true, gefüllt: true },
+            { id: 28, inhalt: ["Regal", "Fach"], gewicht: "6kg", versanddatum: "2024-01-28", fertig: true, adresse: "Bahnhofstraße 11, Wiesbaden", angekommen: true, gefüllt: true },
+            { id: 29, inhalt: ["Spielkonsole", "Spiele"], gewicht: "4.5kg", versanddatum: "2024-01-22", fertig: false, adresse: "Altstadt 6, Berlin", angekommen: false, gefüllt: false },
+            { id: 30, inhalt: ["Tasche", "Schlüssel"], gewicht: "0.8kg", versanddatum: "2024-01-19", fertig: true, adresse: "Neustadt 5, Hannover", angekommen: true, gefüllt: true },
+            { id: 31, inhalt: ["Lautsprecher", "Kabel"], gewicht: "3kg", versanddatum: "2024-01-14", fertig: true, adresse: "Kirchstraße 4, Mainz", angekommen: false, gefüllt: true },
+            { id: 32, inhalt: ["Reinigungsset", "Putztücher"], gewicht: "2.3kg", versanddatum: "2024-01-18", fertig: true, adresse: "Blumenstraße 3, Stuttgart", angekommen: true, gefüllt: true },
+            { id: 33, inhalt: ["Schmuckbox", "Kette"], gewicht: "0.7kg", versanddatum: "2024-01-20", fertig: false, adresse: "Gartenstraße 6, Bremen", angekommen: true, gefüllt: false },
+            { id: 34, inhalt: ["Laufschuhe", "Fitnessbuch"], gewicht: "1.2kg", versanddatum: "2024-01-15", fertig: true, adresse: "Feldstraße 9, Berlin", angekommen: false, gefüllt: true },
+            { id: 35, inhalt: ["Schneeketten", "Eiskratzer"], gewicht: "5kg", versanddatum: "2024-01-13", fertig: true, adresse: "Am Stadtpark 7, Hamburg", angekommen: true, gefüllt: true },
+            { id: 36, inhalt: ["Campingstuhl", "Zelt"], gewicht: "9kg", versanddatum: "2024-01-07", fertig: false, adresse: "Bergstraße 12, Frankfurt", angekommen: true, gefüllt: false },
+            { id: 37, inhalt: ["Hängematte", "Schlafsack"], gewicht: "2.8kg", versanddatum: "2024-01-09", fertig: true, adresse: "Dorfstraße 6, Düsseldorf", angekommen: false, gefüllt: true },
+            { id: 38, inhalt: ["Koffer", "Reisetasche"], gewicht: "4kg", versanddatum: "2024-01-06", fertig: false, adresse: "Hauptstraße 4, Köln", angekommen: true, gefüllt: false },
+            { id: 39, inhalt: ["Hose", "Jacke"], gewicht: "1.3kg", versanddatum: "2024-01-08", fertig: true, adresse: "Auguststraße 7, Stuttgart", angekommen: false, gefüllt: true },
+            { id: 40, inhalt: ["Fahrradhelm", "Handschuhe"], gewicht: "1kg", versanddatum: "2024-01-21", fertig: true, adresse: "Eichenstraße 3, Berlin", angekommen: false, gefüllt: true },
+            { id: 41, inhalt: ["Tablet", "Schutzhülle"], gewicht: "1.5kg", versanddatum: "2024-01-23", fertig: false, adresse: "Hofstraße 4, Mainz", angekommen: true, gefüllt: false },
+            { id: 42, inhalt: ["Handtücher", "Bademantel"], gewicht: "3.2kg", versanddatum: "2024-01-22", fertig: true, adresse: "Berliner Allee 8, Hamburg", angekommen: false, gefüllt: true },
+            { id: 43, inhalt: ["Schreibtischlampe", "Notizbuch"], gewicht: "0.5kg", versanddatum: "2024-01-30", fertig: false, adresse: "Müllerstraße 5, München", angekommen: true, gefüllt: false },
+            { id: 44, inhalt: ["Sonnenbrille", "Schmuck"], gewicht: "0.3kg", versanddatum: "2024-01-24", fertig: true, adresse: "Kastanienweg 6, Hamburg", angekommen: false, gefüllt: true },
+            { id: 45, inhalt: ["Bohrmaschine", "Bauwerkzeug"], gewicht: "4kg", versanddatum: "2024-01-29", fertig: true, adresse: "Waldstraße 7, Köln", angekommen: true, gefüllt: true },
+            { id: 46, inhalt: ["Reiseführer", "Postkarten"], gewicht: "1kg", versanddatum: "2024-01-31", fertig: true, adresse: "Gartenweg 2, Stuttgart", angekommen: false, gefüllt: true },
+            { id: 47, inhalt: ["Babyspielzeug", "Windeln"], gewicht: "2.5kg", versanddatum: "2024-01-20", fertig: false, adresse: "Lindenstraße 12, München", angekommen: true, gefüllt: false },
+            { id: 48, inhalt: ["Powerbank", "Ladekabel"], gewicht: "0.8kg", versanddatum: "2024-01-16", fertig: true, adresse: "Marktplatz 4, Köln", angekommen: false, gefüllt: true },
+            { id: 49, inhalt: ["Gartenmöbel", "Polster"], gewicht: "18kg", versanddatum: "2024-01-11", fertig: true, adresse: "Platzstraße 9, Frankfurt", angekommen: true, gefüllt: true },
+            { id: 50, inhalt: ["Fahrradschloss", "Reflektor"], gewicht: "2kg", versanddatum: "2024-01-17", fertig: false, adresse: "Hauptstraße 12, Stuttgart", angekommen: true, gefüllt: false }
+        ];
 
 
-<!-- Footer für Impressum -->
-<div class="footer">
-    <a href="impressum.html">Impressum</a>
-    <span class="separator">|</span>
-    <a href="datenschutz.html">Datenschutz</a>
-</div>
+        $(document).ready(function () {
+            const packageSelect = $('#packageSelect');
+            packages.forEach(pkg => {
+                packageSelect.append(new Option(`Paket ${pkg.id}`, pkg.id));
+            });
 
-<!-- Bootstrap JS und jQuery einbinden -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<script>
-    // Benutzernamen aus der URL abrufen
-    const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get('user');
-
-    // Benutzernamen anzeigen
-    document.getElementById('username').textContent = username;
-
-    // Abmeldefunktion
-    document.getElementById('logout').addEventListener('click', function(event) {
-        event.preventDefault(); // Verhindert das Standardverhalten des Buttons
-
-        // Bestätigung anzeigen
-        if (confirm("Möchten Sie sich abmelden?")) {
-            // Zurück zur Login-Seite
-            window.location.href = "login.html";
-        }
-    });
-
-    // Zurück-Funktion
-    function goBack() {
-        window.location.href = "/Trogic/menu.html";
-    }
-</script>
-
+            packageSelect.change(function () {
+                const selectedId = parseInt($(this).val());
+                const selectedPackage = packages.find(pkg => pkg.id === selectedId);
+                let packageDetails = `<h5>Paket ${selectedPackage.id}</h5>`;
+                packageDetails += `<div class='detail-section'><strong>Inhalt:</strong> ${selectedPackage.inhalt.join(", ")}</div>`;
+                packageDetails += `<div class='detail-section'><strong>Gewicht:</strong> ${selectedPackage.gewicht}</div>`;
+                packageDetails += `<div class='detail-section'><strong>Versanddatum:</strong> ${selectedPackage.versanddatum}</div>`;
+                packageDetails += `<div class='detail-section'><strong>Fertiggestellt:</strong> ${selectedPackage.fertig ? "Ja" : "Nein"}</div>`;
+                packageDetails += `<div class='detail-section'><strong>Empfängeradresse:</strong> ${selectedPackage.adresse}</div>`;
+                packageDetails += `<div class='detail-section'><strong>Paketstatus:</strong> ${selectedPackage.angekommen ? "Angekommen" : "Unterwegs"}</div>`;
+                
+                if (!selectedPackage.gefüllt) {
+                    packageDetails += `<div class='detail-section'><strong>Füllstatus:</strong> Noch nicht vollständig</div>`;
+                }
+                $('#packageInfo').html(packageDetails);
+            });
+        });
+    </script>
 </body>
 </html>
