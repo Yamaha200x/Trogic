@@ -134,18 +134,18 @@
 
     <div class="container">
         <div class="card">
-            <h3 class="mb-4">Paketverwaltungssystem</h3>
-            <p>Verwalte und überprüfe den Status der Pakete mit detaillierten Informationen.</p>
+            <h3 class="mb-4">Package management system</h3>
+            <p>Manage and check the status of packages with detailed information.</p>
             <label for="packageSelect" class="font-weight-bold">Wähle ein Paket:</label>
             <select id="packageSelect" class="form-control">
-                <option value="" disabled selected>-- Paket auswählen --</option>
+                <option value="" disabled selected>-- Select package --</option>
             </select>
             <div id="packageInfo" class="package-info"></div>
         </div>
     </div>
 
     <div class="footer">
-        <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a>
+        <a href="impressum.html">Imprint</a> | <a href="datenschutz.html">Privacy Policy</a>
     </div>
 
     <script>
@@ -215,7 +215,7 @@
 
         document.getElementById('logout').addEventListener('click', function(event) {
             event.preventDefault();
-            if (confirm("Möchten Sie sich abmelden?")) {
+            if (confirm("Would you like to log out?")) {
                 window.location.href = "login.html";
             }
         });
