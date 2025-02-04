@@ -116,16 +116,16 @@
     
 
 <div id="video-container">
-    <div class="qr-error-message" id="qr-error-message">Kein QR-Code gefunden!</div>
+    <div class="qr-error-message" id="qr-error-message">No QR code found!</div>
     <video id="video" autoplay></video>
 </div>
 
 <div class="qr-result" id="qr-result">
-    <p>Scanne einen QR-Code, um den Inhalt hier zu sehen.</p>
+    <p>Scan a QR code to see the content here.</p>
 </div>
 
 <div class="footer">
-    <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a>
+    <a href="impressum.html">Imprint</a> | <a href="datenschutz.html">Privacy Policy</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
@@ -205,11 +205,12 @@
     }
 
     // Abmeldefunktion
-    document.getElementById('logout').addEventListener('click', function() {
-        if (confirm("Möchten Sie sich abmelden?")) {
-            window.location.href = "login.html";
-        }
-    });
+        document.getElementById('logout').addEventListener('click', function(event) {
+            event.preventDefault();
+            if (confirm("Would you like to log out?")) {
+                window.location.href = "login.html";
+            }
+        });
 
     function goBack() {
         window.location.href = "/Trogic/menu.html";
