@@ -199,15 +199,15 @@
                 const selectedId = parseInt($(this).val());
                 const selectedPackage = packages.find(pkg => pkg.id === selectedId);
                 let packageDetails = `<h5>Paket ${selectedPackage.id}</h5>`;
-                packageDetails += `<div class='detail-section'><strong>Inhalt:</strong> ${selectedPackage.inhalt.join(", ")}</div>`;
-                packageDetails += `<div class='detail-section'><strong>Gewicht:</strong> ${selectedPackage.gewicht}</div>`;
-                packageDetails += `<div class='detail-section'><strong>Versanddatum:</strong> ${selectedPackage.versanddatum}</div>`;
-                packageDetails += `<div class='detail-section'><strong>Fertiggestellt:</strong> ${selectedPackage.fertig ? "Ja" : "Nein"}</div>`;
-                packageDetails += `<div class='detail-section'><strong>Empfängeradresse:</strong> ${selectedPackage.adresse}</div>`;
-                packageDetails += `<div class='detail-section'><strong>Paketstatus:</strong> ${selectedPackage.angekommen ? "Angekommen" : "Unterwegs"}</div>`;
+                packageDetails += `<div class='detail-section'><strong>Content:</strong> ${selectedPackage.inhalt.join(", ")}</div>`;
+                packageDetails += `<div class='detail-section'><strong>Weight:</strong> ${selectedPackage.gewicht}</div>`;
+                packageDetails += `<div class='detail-section'><strong>Shipping date:</strong> ${selectedPackage.versanddatum}</div>`;
+                packageDetails += `<div class='detail-section'><strong>Completed:</strong> ${selectedPackage.fertig ? "Yes" : "No"}</div>`;
+                packageDetails += `<div class='detail-section'><strong>Recipient address:</strong> ${selectedPackage.adresse}</div>`;
+                packageDetails += `<div class='detail-section'><strong>Package status:</strong> ${selectedPackage.angekommen ? "Arrived" : "On the way"}</div>`;
                 
                 if (!selectedPackage.gefüllt) {
-                    packageDetails += `<div class='detail-section'><strong>Füllstatus:</strong> Noch nicht vollständig</div>`;
+                    packageDetails += `<div class='detail-section'><strong>Filling status:</strong> Not yet complete</div>`;
                 }
                 $('#packageInfo').html(packageDetails);
             });
