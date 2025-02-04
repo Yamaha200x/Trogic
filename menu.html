@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hauptmenü - Mobile App</title>
+    <title>Main menu - Mobile App</title>
     <!-- Bootstrap CSS einbinden -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome für Icons einbinden -->
@@ -177,9 +177,9 @@
 
 <!-- Footer für Impressum -->
 <div class="footer">
-    <a href="impressum.html">Impressum</a>
+    <a href="impressum.html">Imprint</a>
     <span class="separator">|</span>
-    <a href="datenschutz.html">Datenschutz</a>
+    <a href="datenschutz.html">Privacy Policy</a>
 </div>
 
 <!-- Bootstrap JS und jQuery einbinden -->
@@ -196,15 +196,12 @@
     document.getElementById('username').textContent = username;
 
     // Abmeldefunktion
-    document.getElementById('logout').addEventListener('click', function(event) {
-        event.preventDefault(); // Verhindert das Standardverhalten des Buttons
-
-        // Bestätigung anzeigen
-        if (confirm("Möchten Sie sich abmelden?")) {
-            // Zurück zur Login-Seite
-            window.location.href = "login.html";
-        }
-    });
+        document.getElementById('logout').addEventListener('click', function(event) {
+            event.preventDefault();
+            if (confirm("Would you like to log out?")) {
+                window.location.href = "login.html";
+            }
+        });
 </script>
 
 </body>
