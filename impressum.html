@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imprint - Trogic</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #6b6b70;
+            color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px; /* Padding für den Header und Footer */
+        }
+        .content {
+            text-align: center;
+            padding: 20px;
+            max-width: 900px;
+            width: 100%;
+        }
+        p {
+            line-height: 1.6;
+        }
+        .header {
+            background-color: #0A025D;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            z-index: 1000;
+        }
+        .logo {
+            width: 40px;
+        }
+        .user-info span {
+            color: white;
+            margin-right: 10px;
+        }
+        .btn-logout {
+            background: none;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .btn-logout:hover {
+            color: #dc3545;
+        }
+        .footer {
+            background-color: #0A025D;
+            color: white;
+            text-align: center;
+            width: 100%;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            height: 60px;
+            z-index: 1000;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .footer a:hover {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="/Trogic/img/logo.png" alt="Logo" class="logo" onclick="goBack()">
+        <div class="user-info">
+            <button class="btn-logout" id="logout">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="content">
+            <h1>Imprint</h1>
+            <p><strong>Website Name:</strong> Trogic</p>
+            <p><strong>Responsible for Content:</strong></p>
+            <p>
+                <strong>Manager:</strong> Johannes Zielenbach<br>
+                <strong>Lead Designer:</strong> Jana Pitzer<br>
+                <strong>Lead Developer:</strong> Daniel Paersch<br>
+                <strong>Deputy Developer:</strong> Noah Helmig
+            </p>
+            <h2>Contact Information</h2>
+            <p>
+                <strong>Email:</strong> info@trogic.com<br>
+                <strong>Phone:</strong> +49 15256422356
+            </p>
+            <h2>Company Information</h2>
+            <p>
+                <strong>Company Name:</strong> Trogic Ltd.<br>
+                <strong>Registered Address:</strong> Sontec GmbH, Am Wasserfall 6, 57368 Lennestadt, Germany<br>
+                <strong>Commercial Register:</strong> HRB 123456, Amtsgericht Lennestadt<br>
+                <strong>VAT ID:</strong> DE123456789
+            </p>
+            <h2>Liability Notice</h2>
+            <p>
+                Despite careful control, we assume no liability for the content of external links. The operators of the linked pages are solely responsible for their content.
+            </p>
+            <h2>Copyright</h2>
+            <p>
+                All content on this website, including text, graphics, logos, and images, is the property of Trogic Ltd. and is protected by copyright laws. Unauthorized use, reproduction, or distribution is prohibited.
+            </p>
+            <h2>Privacy Policy</h2>
+            <p>
+                We take the protection of your personal data seriously. All personal data collected on this website will be treated in accordance with applicable data protection regulations. We do not share your data with third parties without your explicit consent.
+            </p>
+            <h2>Terms of Use</h2>
+            <p>
+                By accessing and using this website, you agree to comply with our terms and conditions. Unauthorized use or abuse of this site is strictly prohibited and may result in legal action.
+            </p>
+            <h2>Dispute Resolution</h2>
+            <p>
+                The European Commission provides an online dispute resolution (ODR) platform, available at <a href="https://ec.europa.eu/consumers/odr/">https://ec.europa.eu/consumers/odr/</a>. We are neither obligated nor willing to participate in a dispute resolution procedure before a consumer arbitration board.
+            </p>
+        </div>
+    </div>
+    <div class="footer"></div>
+    <script>
+        document.getElementById('logout').addEventListener('click', function(event) {
+            event.preventDefault();
+            if (confirm("Would you like to log out?")) {
+                window.location.href = "login.html";
+            }
+        });
+
+        function goBack() {
+            window.location.href = "/Trogic/menu.html";
+        }
+    </script>
+</body>
+</html>
