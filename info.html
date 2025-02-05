@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Info - Fehlermeldungen & Logs</title>
+    <title>Info - Error Messages & Logs</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -40,7 +40,7 @@
         }
 
         .btn-logout:hover {
-            color: #dc3545; /* Farbe ändern, wenn Hover */
+            color: #dc3545; /* Change color on hover */
         }
 
 
@@ -112,32 +112,32 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
-                    <h5><i class="fas fa-exclamation-triangle"></i> Letzte Fehlermeldungen</h5>
-                    <div class="log-entry">[2025-02-05 14:23] Lieferung #10234 konnte nicht zugestellt werden - Adresse unvollständig.</div>
-                    <div class="log-entry">[2025-02-05 13:45] Scanner #23 ausgefallen - Keine Verbindung zum Server.</div>
-                    <div class="log-entry">[2025-02-05 12:30] Netzwerkproblem in Lagerhalle B - Verbindungsabbrüche.</div>
-                    <div class="log-entry">[2025-02-05 11:10] LKW #34 nicht gescannt - Verladung unvollständig.</div>
-                    <div class="log-entry">[2025-02-04 17:12] Lagerbestand für Artikel #5021 weicht ab - Überprüfung erforderlich.</div>
-                    <div class="log-entry">[2025-02-04 15:50] Barcode #889102 nicht lesbar - Scanner defekt.</div>
-                    <div class="log-entry">[2025-02-04 14:20] Lieferverzögerung aufgrund von Wetterbedingungen.</div>
-                    <div class="log-entry">[2025-02-03 16:30] LKW #58 verspätet - Stau auf Autobahn.</div>
-                    <div class="log-entry">[2025-02-03 10:50] Barcode #779002 fehlerhaft - Unbekannter Artikel.</div>
+                    <h5><i class="fas fa-exclamation-triangle"></i> Latest Error Messages</h5>
+                    <div class="log-entry">[2025-02-05 14:23] Delivery #10234 could not be delivered - Incomplete address.</div>
+                    <div class="log-entry">[2025-02-05 13:45] Scanner #23 failed - No connection to server.</div>
+                    <div class="log-entry">[2025-02-05 12:30] Network problem in Warehouse B - Connection drops.</div>
+                    <div class="log-entry">[2025-02-05 11:10] Truck #34 not scanned - Loading incomplete.</div>
+                    <div class="log-entry">[2025-02-04 17:12] Stock discrepancy for item #5021 - Verification required.</div>
+                    <div class="log-entry">[2025-02-04 15:50] Barcode #889102 unreadable - Faulty scanner.</div>
+                    <div class="log-entry">[2025-02-04 14:20] Delivery delay due to weather conditions.</div>
+                    <div class="log-entry">[2025-02-03 16:30] Truck #58 delayed - Traffic jam on the highway.</div>
+                    <div class="log-entry">[2025-02-03 10:50] Barcode #779002 defective - Unknown item.</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="card">
-                    <h5><i class="fas fa-chart-bar"></i> Fehlerstatistik</h5>
-                    <p>Gesamtzahl Fehler in den letzten 24 Stunden: <strong>25</strong></p>
-                    <p>Häufigste Fehlerquelle: <strong>Scanner-Ausfälle (9)</strong></p>
-                    <p>Lieferprobleme: <strong>6</strong></p>
-                    <p>Bestandsabweichungen: <strong>7</strong></p>
-                    <p>Netzwerkprobleme: <strong>3</strong></p>
+                    <h5><i class="fas fa-chart-bar"></i> Error Statistics</h5>
+                    <p>Total errors in the last 24 hours: <strong>25</strong></p>
+                    <p>Most common error source: <strong>Scanner failures (9)</strong></p>
+                    <p>Delivery problems: <strong>6</strong></p>
+                    <p>Stock discrepancies: <strong>7</strong></p>
+                    <p>Network problems: <strong>3</strong></p>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="card">
-                    <h5><i class="fas fa-chart-bar"></i> Fehlerstatistik</h5>
-                    <p>Gesamtzahl Fehler in den letzten 24 Stunden: <strong>25</strong></p>
+                    <h5><i class="fas fa-chart-bar"></i> Error Statistics</h5>
+                    <p>Total errors in the last 24 hours: <strong>25</strong></p>
                     <div class="chart-container">
                         <canvas id="errorChart"></canvas>
                     </div>
@@ -156,9 +156,9 @@
         var errorChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Scanner-Ausfälle', 'Lieferprobleme', 'Bestandsabweichungen', 'Netzwerkprobleme'],
+                labels: ['Scanner Failures', 'Delivery Problems', 'Stock Discrepancies', 'Network Problems'],
                 datasets: [{
-                    label: 'Anzahl Fehler',
+                    label: 'Number of Errors',
                     data: [9, 6, 7, 3],
                     backgroundColor: ['#FF5733', '#FFC300', '#3498DB', '#8E44AD']
                 }]
@@ -175,7 +175,7 @@
 
         document.getElementById('logout').addEventListener('click', function(event) {
             event.preventDefault();
-            if (confirm("Möchten Sie sich abmelden?")) {
+            if (confirm("Do you want to log out?")) {
                 window.location.href = "login.html";
             }
         });
