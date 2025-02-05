@@ -186,6 +186,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> <!-- Vollständige jQuery-Version -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        
+
 
 <script>
     // Benutzernamen aus der URL abrufen
@@ -193,13 +195,22 @@
     const username = urlParams.get('user');
 
 document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('logout').addEventListener('click', function(event) {
-        event.preventDefault();
-        if (confirm("Would you like to log out?")) {
-            window.location.href = "login.html";
-        }
-    });
+    let logoutButton = document.getElementById('logout');
+    if (logoutButton) {
+        console.log("Logout-Button gefunden!");
+        logoutButton.addEventListener('click', function(event) {
+            console.log("Logout-Button geklickt!");
+            event.preventDefault();
+            if (confirm("Would you like to log out?")) {
+                console.log("Weiterleitung zu login.html");
+                window.location.href = "login.html";
+            }
+        });
+    } else {
+        console.log("Logout-Button nicht gefunden!");
+    }
 });
+
 
 
     function goBack() {
