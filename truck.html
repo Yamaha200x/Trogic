@@ -469,13 +469,22 @@
     const username = urlParams.get('user');
     document.getElementById('username').textContent = username;
 
-    // Abmeldefunktion
-    document.getElementById('logout').addEventListener('click', function(event) {
-        event.preventDefault();
-        if (confirm("Would you like to log out?")) {
-            window.location.href = "login.html";
-        }
-    });
+document.addEventListener("DOMContentLoaded", function() {
+    let logoutButton = document.getElementById('logout');
+    if (logoutButton) {
+        console.log("Logout-Button gefunden!");
+        logoutButton.addEventListener('click', function(event) {
+            console.log("Logout-Button geklickt!");
+            event.preventDefault();
+            if (confirm("Would you like to log out?")) {
+                console.log("Weiterleitung zu login.html");
+                window.location.href = "login.html";
+            }
+        });
+    } else {
+        console.log("Logout-Button nicht gefunden!");
+    }
+});
 
     function goBack() {
         window.location.href = "/Trogic/menu.html";
