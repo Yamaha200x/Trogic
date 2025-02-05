@@ -259,15 +259,15 @@
 <body>
 
 <!-- Header -->
-<div class="header">
-    <img src="/Trogic/img/logo.png" alt="Logo" class="logo" onclick="goBack()">
-    <div class="user-info">
-
-        <button class="btn-logout" id="logout">
-            <i class="fas fa-sign-out-alt"></i>
-        </button>
+    <div class="header">
+        <img src="/Trogic/img/logo.png" alt="Logo" class="logo" onclick="goBack()">
+        <div class="user-info">
+    
+            <button class="btn-logout" id="logout">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
     </div>
-</div>
 
 
 <div class="container-fluid">
@@ -469,26 +469,16 @@
     const username = urlParams.get('user');
     document.getElementById('username').textContent = username;
 
-document.addEventListener("DOMContentLoaded", function() {
-    let logoutButton = document.getElementById('logout');
-    if (logoutButton) {
-        console.log("Logout-Button gefunden!");
-        logoutButton.addEventListener('click', function(event) {
-            console.log("Logout-Button geklickt!");
+        document.getElementById('logout').addEventListener('click', function(event) {
             event.preventDefault();
             if (confirm("Would you like to log out?")) {
-                console.log("Weiterleitung zu login.html");
                 window.location.href = "login.html";
             }
         });
-    } else {
-        console.log("Logout-Button nicht gefunden!");
-    }
-});
 
-    function goBack() {
-        window.location.href = "/Trogic/menu.html";
-    }
+        function goBack() {
+            window.location.href = "/Trogic/menu.html";
+        }
 </script>
 
 </body>
