@@ -14,8 +14,6 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            justify-content: center; /* Zentriert den Inhalt */
-            align-items: center; /* Zentriert den Inhalt */
         }
 
         /* Header-Stil */
@@ -26,24 +24,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
-            z-index: 1;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
 
         .logo {
             width: 40px;
-            height: auto;
-        }
-
-        /* Benutzer-Info Bereich */
-        .user-info {
-            display: flex;
-            align-items: center;
-        }
-
-        .user-info span {
-            margin-right: 10px;
-            color: white;
         }
 
         .btn-logout {
@@ -55,7 +43,7 @@
         }
 
         .btn-logout:hover {
-            color: #dc3545;
+            color: #dc3545; /* Farbe ändern, wenn Hover */
         }
 
         /* Footer für Impressum immer am unteren Rand */
@@ -82,21 +70,6 @@
 
         .footer a:hover {
             color: #dc3545;
-        }
-
-        /* Benutzerdefinierte Farbe für den Zurück-Button */
-        .btn-custom {
-            background-color: #0A025D;  /* Blaue Hintergrundfarbe */
-            color: white;               /* Weiße Schriftfarbe */
-            border: none;               /* Keine Rahmenfarbe */
-        }
-
-        /* Positionierung des Zurück-Buttons links unter dem Header */
-        .back-button-container {
-            position: absolute;
-            top: 80px; /* Abstand vom Header */
-            left: 20px; /* Abstand vom linken Rand */
-            z-index: 2;
         }
 
         /* Keine Änderung für kleinere Bildschirme, immer 2x3-Anordnung */
