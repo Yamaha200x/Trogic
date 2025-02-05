@@ -11,11 +11,9 @@
         body {
             background-color: #6b6b70;
             color: white;
-            display: flex;
-            flex-direction: column;
             min-height: 100vh;
         }
-        /* Header-Stil */
+
         .header {
             background-color: #0A025D;
             padding: 10px 20px;
@@ -23,24 +21,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
-            z-index: 1;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
 
         .logo {
             width: 40px;
-            height: auto;
-        }
-
-        /* Benutzer-Info Bereich */
-        .user-info {
-            display: flex;
-            align-items: center;
-        }
-
-        .user-info span {
-            margin-right: 10px;
-            color: white;
         }
 
         .btn-logout {
@@ -55,29 +43,33 @@
             color: #dc3545; /* Farbe ändern, wenn Hover */
         }
 
-        
+
         .content {
-            flex: 1;
+            margin-top: 80px;
             padding: 20px;
         }
+
         .card {
             background-color: #0A025D;
             color: white;
             border-radius: 10px;
             padding: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 50px;
         }
+
         .log-entry {
             background-color: rgba(255, 0, 0, 0.2);
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 10px;
         }
+
         .chart-container {
             width: 100%;
             max-width: 600px;
             margin: auto;
         }
+
         .footer {
             background-color: #0A025D;
             color: white;
@@ -115,36 +107,49 @@
             </button>
         </div>
     </div>
-    
-    <div class="content container">
-        <div class="card">
-            <h5><i class="fas fa-exclamation-triangle"></i> Letzte Fehlermeldungen</h5>
-            <div class="log-entry">[2025-02-05 14:23] Lieferung #10234 konnte nicht zugestellt werden - Adresse unvollständig.</div>
-            <div class="log-entry">[2025-02-05 13:45] Scanner #23 ausgefallen - Keine Verbindung zum Server.</div>
-            <div class="log-entry">[2025-02-05 12:30] Netzwerkproblem in Lagerhalle B - Verbindungsabbrüche.</div>
-            <div class="log-entry">[2025-02-05 11:10] LKW #34 nicht gescannt - Verladung unvollständig.</div>
-            <div class="log-entry">[2025-02-04 17:12] Lagerbestand für Artikel #5021 weicht ab - Überprüfung erforderlich.</div>
-            <div class="log-entry">[2025-02-04 15:50] Barcode #889102 nicht lesbar - Scanner defekt.</div>
-            <div class="log-entry">[2025-02-04 14:20] Lieferverzögerung aufgrund von Wetterbedingungen.</div>
-            <div class="log-entry">[2025-02-03 16:30] LKW #58 verspätet - Stau auf Autobahn.</div>
-            <div class="log-entry">[2025-02-03 10:50] Barcode #779002 fehlerhaft - Unbekannter Artikel.</div>
-        </div>
-        <div class="card">
-            <h5><i class="fas fa-chart-bar"></i> Fehlerstatistik</h5>
-            <p>Gesamtzahl Fehler in den letzten 24 Stunden: <strong>25</strong></p>
-            <p>Häufigste Fehlerquelle: <strong>Scanner-Ausfälle (9)</strong></p>
-            <p>Lieferprobleme: <strong>6</strong></p>
-            <p>Bestandsabweichungen: <strong>7</strong></p>
-            <p>Netzwerkprobleme: <strong>3</strong></p>
-            <div class="chart-container">
-                <canvas id="errorChart"></canvas>
+
+    <div class="container content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Letzte Fehlermeldungen</h5>
+                    <div class="log-entry">[2025-02-05 14:23] Lieferung #10234 konnte nicht zugestellt werden - Adresse unvollständig.</div>
+                    <div class="log-entry">[2025-02-05 13:45] Scanner #23 ausgefallen - Keine Verbindung zum Server.</div>
+                    <div class="log-entry">[2025-02-05 12:30] Netzwerkproblem in Lagerhalle B - Verbindungsabbrüche.</div>
+                    <div class="log-entry">[2025-02-05 11:10] LKW #34 nicht gescannt - Verladung unvollständig.</div>
+                    <div class="log-entry">[2025-02-04 17:12] Lagerbestand für Artikel #5021 weicht ab - Überprüfung erforderlich.</div>
+                    <div class="log-entry">[2025-02-04 15:50] Barcode #889102 nicht lesbar - Scanner defekt.</div>
+                    <div class="log-entry">[2025-02-04 14:20] Lieferverzögerung aufgrund von Wetterbedingungen.</div>
+                    <div class="log-entry">[2025-02-03 16:30] LKW #58 verspätet - Stau auf Autobahn.</div>
+                    <div class="log-entry">[2025-02-03 10:50] Barcode #779002 fehlerhaft - Unbekannter Artikel.</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <h5><i class="fas fa-chart-bar"></i> Fehlerstatistik</h5>
+                    <p>Gesamtzahl Fehler in den letzten 24 Stunden: <strong>25</strong></p>
+                    <p>Häufigste Fehlerquelle: <strong>Scanner-Ausfälle (9)</strong></p>
+                    <p>Lieferprobleme: <strong>6</strong></p>
+                    <p>Bestandsabweichungen: <strong>7</strong></p>
+                    <p>Netzwerkprobleme: <strong>3</strong></p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <h5><i class="fas fa-chart-bar"></i> Fehlerstatistik</h5>
+                    <p>Gesamtzahl Fehler in den letzten 24 Stunden: <strong>25</strong></p>
+                    <div class="chart-container">
+                        <canvas id="errorChart"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="footer">
+        <a href="impressum.html">Imprint</a> | <a href="datenschutz.html">Privacy Policy</a>
+    </div>
     
-<div class="footer">
-    <a href="impressum.html">Imprint</a> | <a href="datenschutz.html">Privacy Policy</a>
-</div>
 
     <script>
         var ctx = document.getElementById('errorChart').getContext('2d');
@@ -168,17 +173,16 @@
             }
         });
 
-            // Abmeldefunktion
-    document.getElementById('logout').addEventListener('click', function(event) {
-        event.preventDefault();
-        if (confirm("Would you like to log out?")) {
-            window.location.href = "login.html";
-        }
-    });
+        document.getElementById('logout').addEventListener('click', function(event) {
+            event.preventDefault();
+            if (confirm("Möchten Sie sich abmelden?")) {
+                window.location.href = "login.html";
+            }
+        });
 
-    function goBack() {
-        window.location.href = "/Trogic/menu.html";
-    }
+        function goBack() {
+            window.location.href = "/Trogic/menu.html";
+        }
     </script>
 </body>
 </html>
