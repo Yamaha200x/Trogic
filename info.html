@@ -15,11 +15,70 @@
             flex-direction: column;
             min-height: 100vh;
         }
+        /* Header-Stil */
         .header {
             background-color: #0A025D;
             padding: 10px 20px;
             color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            width: 40px;
+            height: auto;
+        }
+
+        /* Benutzer-Info Bereich */
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info span {
+            margin-right: 10px;
+            color: white;
+        }
+
+        .btn-logout {
+            background-color: transparent;
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .btn-logout:hover {
+            color: #dc3545;
+        }
+
+        /* Footer für Impressum immer am unteren Rand */
+        .footer {
+            background-color: #0A025D;
+            color: white;
             text-align: center;
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            gap: 10px;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer a:hover {
+            color: #dc3545;
         }
         .content {
             flex: 1;
@@ -31,15 +90,6 @@
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 15px;
-        }
-        .footer {
-            background-color: #0A025D;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: relative;
-            bottom: 0;
-            width: 100%;
         }
         .log-entry {
             background-color: rgba(255, 0, 0, 0.2);
