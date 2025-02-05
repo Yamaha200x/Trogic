@@ -20,9 +20,12 @@
         .header {
             background-color: #0A025D;
             padding: 10px 20px;
+            color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 1;
         }
 
         .logo {
@@ -30,9 +33,15 @@
             height: auto;
         }
 
+        /* Benutzer-Info Bereich */
         .user-info {
             display: flex;
             align-items: center;
+        }
+
+        .user-info span {
+            margin-right: 10px;
+            color: white;
         }
 
         .btn-logout {
@@ -42,6 +51,11 @@
             font-size: 20px;
             cursor: pointer;
         }
+
+        .btn-logout:hover {
+            color: #dc3545; /* Farbe ändern, wenn Hover */
+        }
+
 
         /* Container für das Video */
         #video-container {
@@ -89,13 +103,24 @@
 
         .footer {
             background-color: #0A025D;
-            padding: 10px 0;
+            color: white;
             text-align: center;
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            gap: 10px;
+            position: fixed;
+            bottom: 0;
+            z-index: 1000;
         }
 
         .footer a {
             color: white;
             text-decoration: none;
+            font-size: 14px;
         }
 
         .footer a:hover {
