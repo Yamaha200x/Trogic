@@ -52,34 +52,10 @@
         }
 
         .btn-logout:hover {
-            color: #dc3545;
+            color: #dc3545; /* Farbe ändern, wenn Hover */
         }
 
-        /* Footer für Impressum immer am unteren Rand */
-        .footer {
-            background-color: #0A025D;
-            color: white;
-            text-align: center;
-            width: 100%;
-            padding: 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 60px;
-            gap: 10px;
-            position: absolute;
-            bottom: 0;
-        }
-
-        .footer a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .footer a:hover {
-            color: #dc3545;
-        }
+        
         .content {
             flex: 1;
             padding: 20px;
@@ -101,6 +77,31 @@
             width: 100%;
             max-width: 600px;
             margin: auto;
+        }
+        .footer {
+            background-color: #0A025D;
+            color: white;
+            text-align: center;
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            gap: 10px;
+            position: fixed;
+            bottom: 0;
+            z-index: 1000;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer a:hover {
+            color: #dc3545;
         }
     </style>
 </head>
