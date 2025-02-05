@@ -14,6 +14,8 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            justify-content: center; /* Zentriert den Inhalt */
+            align-items: center; /* Zentriert den Inhalt */
         }
 
         /* Header-Stil */
@@ -108,6 +110,14 @@
                 grid-template-rows: repeat(3, 1fr);
             }
         }
+
+        /* Stil für das Bild */
+        .image-center {
+            max-width: 100%; /* Bild passt sich der Bildschirmgröße an */
+            height: auto;
+            display: block;
+            margin: 0 auto; /* Zentriert das Bild */
+        }
     </style>
 </head>
 <body>
@@ -123,6 +133,9 @@
         </button>
     </div>
 </div>
+
+<!-- Bild in der Mitte der Seite -->
+<img src="/Trogic/img/WIP.png" alt="Bild" class="image-center">
 
 <!-- Footer für Impressum -->
 <div class="footer">
